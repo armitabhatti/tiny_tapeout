@@ -25,3 +25,23 @@ module tt_um_example (
   wire _unused = &{ena, clk, rst_n, 1'b0};
 
 endmodule
+
+
+
+// task: 8-bit programmable counter with tri-state outputs
+
+// for high impedance: when output enable is low uio_out is high impedance uio_in can be read safely
+
+// so usually, output of counter will be on uio_out, unless you want to program, then push onto uoi_in
+
+
+//assign uio_oe is held high
+//when user puts on input for a load, uio_oe assigned low
+// at the positive edge of the clock
+    // if reset: uio_out = 0
+    // if load: count = uio_in  
+    // else: count ++
+//cts:
+// uio_out = count
+// uio_oe = loadn sig
+

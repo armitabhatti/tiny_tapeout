@@ -17,12 +17,28 @@ module tt_um_example (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
+//  assign uo_out  = 0;  // Example: ou_out is the sum of ui_in and uio_in
   assign uio_out = 0;
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+// wire _unused = &{ena, clk, rst_n, 1'b0};
+ wire _unused = &{ena, 1'b0};
+
+
+
+
+counter counter_inst(
+    .counter_out(uo_out),
+    .oe(uio_in[1]), // 1 for output enable
+    .load_select(uio_in[0]), // 0 for count, 1 for load
+    .load_in(ui_in),
+    .clk(clk),      // clock
+    .rst_n(rst_n)
+);
+
+
+
 
 endmodule
 
@@ -35,7 +51,7 @@ endmodule
 // so usually, output of counter will be on uio_out, unless you want to program, then push onto uoi_in
 
 
-//assign uio_oe is held high
+//assign uio_oe is  high
 //when user puts on input for a load, uio_oe assigned low
 // at the positive edge of the clock
     // if reset: uio_out = 0
@@ -44,4 +60,13 @@ endmodule
 //cts:
 // uio_out = count
 // uio_oe = loadn sig
+
+//inputs mapping
+//in[0]= load
+//in[1]= tri state
+
+//outputs mapping
+//
+
+
 

@@ -96,7 +96,7 @@ module i2c_slave #(
     reg       address_match;
     reg       read_check;
     reg [1:0] byte_index;
-    reg [7:0] addr_rw;
+    //reg [7:0] addr_rw;
     reg       ack_asserted;
 
 
@@ -112,7 +112,7 @@ module i2c_slave #(
             address_match <= 0;
             read_check    <= 0;
             byte_index    <= 0;
-            addr_rw       <= 0;
+          //  addr_rw       <= 0;
 
         end else begin
 
@@ -146,7 +146,7 @@ module i2c_slave #(
                              $time, bit_counter, sda_in, {shreg[6:0], sda_in});
 
                     if (bit_counter == 7) begin
-                        addr_rw       <= ({shreg[6:0], sda_in} >> 1)[6:0];
+                        //addr_rw       <= ({shreg[6:0], sda_in} >> 1)[6:0];
                         address_match <= ( {shreg[6:0], sda_in} >> 1 ) == I2C_ADDR;
                         read_check    <= sda_in;
                         bit_counter <= 0;

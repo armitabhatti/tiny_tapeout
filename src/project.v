@@ -36,7 +36,7 @@ module tt_um_example (
         .rst_n   (rst_n)
     );
 
-    assign uo_out = x_pos;
+    //assign uo_out = x_pos;
 
 
     // ================================================================
@@ -55,6 +55,7 @@ module tt_um_example (
         .sda_in (uio_in[1]),    // SDA from pad
         .sda_oe (sda_oe_int),   // open-drain enable from slave
         .sda_out(sda_out_int),  // always 0 inside slave
+        .i2c_state(uo_out[2:0]),
         .x_pos  (x_pos),
         .y_pos  (y_pos),
         .status (status_reg),
@@ -89,6 +90,7 @@ module tt_um_example (
     wire _unused_ui = &ui_in;
     wire _unused_uio = &uio_in;
     wire _unused_sda_out = sda_out_int;
+    wire _unused_uo_out = &{uo_out[7:3]};
    // wire _unused_i2c = &{sda_rise};
 
 endmodule

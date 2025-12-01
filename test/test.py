@@ -131,7 +131,7 @@ async def test_i2c_start_condition(dut):
     # ------------------------- Master ACK -------------------------
     dut._log.info("Master ACKing received byte")
 
-    while int(dut.i2c_slave_inst.state) != 4:
+    while int(dut.i2c_state) != 4:
         await Timer(20, "ns")
 
     # Wait for SCL low
@@ -148,7 +148,7 @@ async def test_i2c_start_condition(dut):
     dut.uio_in[1].value = 1                    
 
     # ---------------- second ACK ----------------
-    while int(dut.i2c_slave_inst.state) != 4:
+    while int(dut.i2c_state) != 4:
         await Timer(20, "ns")
 
     while int(dut.uio_in[2].value) != 0:       
@@ -163,7 +163,7 @@ async def test_i2c_start_condition(dut):
     dut.uio_in[1].value = 1                    
 
     # ---------------- third ACK ----------------
-    while int(dut.i2c_slave_inst.state) != 4:
+    while int(dut.i2c_state) != 4:
         await Timer(20, "ns")
 
     while int(dut.uio_in[2].value) != 0:       

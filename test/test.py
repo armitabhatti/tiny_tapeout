@@ -80,10 +80,10 @@ SCL_PERIOD_NS = int(1e9 // SCL_FREQ_HZ)
 async def test_i2c_start_condition(dut):
 
     # Start system clock
-    cocotb.start_soon(Clock(dut.clk, 20, unit="ns").start())
+    cocotb.start_soon(Clock(dut.clk, 20, units="ns").start())
 
     # Start SCL clock  (UPDATED → uio_in[2])
-    scl_clock = Clock(dut.uio_in[2], SCL_PERIOD_NS, unit="ns")
+    scl_clock = Clock(dut.uio_in[2], SCL_PERIOD_NS, units="ns")
     cocotb.start_soon(scl_clock.start())
 
     # reset !

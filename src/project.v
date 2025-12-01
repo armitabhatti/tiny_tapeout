@@ -62,6 +62,9 @@ module tt_um_example (
         .rst_n  (rst_n)
     );
 
+    wire [2:0] i2c_state;
+    assign i2c_state = i2c_slave_inst.state;
+
     // ================================================================
     // 3. Open-drain wiring on the chip pads
     // ================================================================

@@ -84,13 +84,14 @@ module tt_um_example (
     assign uio_out[0]   = 1'b0;
     assign uio_oe[0]   = 1'b0;
 
+    assign uo_out[7:3] = 5'b0;
 
     // Avoid unused-signal warnings
     wire _unused = &{ena, 1'b0};
     wire _unused_ui = &ui_in;
     wire _unused_uio = &uio_in;
     wire _unused_sda_out = sda_out_int;
-    wire _unused_uo_out = &{uo_out[7:3]};
+    //wire _unused_uo_out = &{uo_out[7:3]};
    // wire _unused_i2c = &{sda_rise};
 
 endmodule

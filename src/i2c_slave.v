@@ -157,7 +157,7 @@ module i2c_slave #(
                                  $time, {shreg[6:0], sda_in});
                         $display("[%0t] Address match? %0d (expected %b)",
                                 $time,
-                                (({shreg[6:0], sda_in} >> 1) == I2C_ADDR),
+                                (({shreg[6:0], sda_in} >> 1) == {1'b0, I2C_ADDR}),
                                 I2C_ADDR);
                         $display("[%0t] R/W = %0d", $time, sda_in);
                     end

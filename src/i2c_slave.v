@@ -25,6 +25,7 @@ module i2c_slave #(
     input  wire       sda_in,
     output wire       sda_oe,
     output wire       sda_out,
+    output wire [2:0] i2c_state,
     input  wire [7:0] x_pos,
     input  wire [7:0] y_pos,
     input  wire [7:0] status,
@@ -267,5 +268,7 @@ module i2c_slave #(
             endcase
         end
     end
+
+    assign i2c_state = state;
 
 endmodule

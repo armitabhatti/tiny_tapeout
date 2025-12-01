@@ -146,7 +146,7 @@ module i2c_slave #(
                              $time, bit_counter, sda_in, {shreg[6:0], sda_in});
 
                     if (bit_counter == 7) begin
-                        addr_rw       <= {shreg[6:0], sda_in};
+                        addr_rw       <= ({shreg[6:0], sda_in} >> 1)[6:0];
                         address_match <= ( {shreg[6:0], sda_in} >> 1 ) == I2C_ADDR;
                         read_check    <= sda_in;
                         bit_counter <= 0;

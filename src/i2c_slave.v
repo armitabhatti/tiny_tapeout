@@ -206,14 +206,14 @@ module i2c_slave #(
                     pull_sda <= (shreg[7] == 1'b0);
 
                 if (scl_rise) begin
-                    $display("[%0t] TX_BYTE: sending bit %0d = %0b",
-                             $time, bit_counter, shreg[7]);
+                    // $display("[%0t] TX_BYTE: sending bit %0d = %0b",
+                    //          $time, bit_counter, shreg[7]);
 
                     shreg <= {shreg[6:0], 1'b0};
                     bit_counter <= bit_counter + 1;
                 end
                 if (scl_fall && bit_counter == 8) begin
-                        $display("[%0t] TX_BYTE: finished byte", $time);
+                        // $display("[%0t] TX_BYTE: finished byte", $time);
                         bit_counter <= 0;
                         pull_sda <= 0;
                         state <= MACK;

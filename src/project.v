@@ -86,6 +86,10 @@ module tt_um_example (
 
     // Avoid unused-signal warnings
     wire _unused = &{ena, 1'b0};
+    wire _unused_ui = &ui_in;
+    wire _unused_uio = &uio_in;
+    wire _unused_sda_out = sda_out_int;
+    wire _unused_i2c = &{sda_rise, addr_rw[0]};
 
 endmodule
 

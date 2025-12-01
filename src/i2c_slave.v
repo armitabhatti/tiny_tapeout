@@ -71,8 +71,8 @@ module i2c_slave #(
         end else begin
             bus_start <= sda_fall && scl_high;
 
-            if (sda_fall && scl_high)
-               // $display("[%0t] I2C: START detected", $time);
+            // if (sda_fall && scl_high)
+            //     $display("[%0t] I2C: START detected", $time);
         end
     end
 
@@ -112,7 +112,7 @@ module i2c_slave #(
             address_match <= 0;
             read_check    <= 0;
             byte_index    <= 0;
-          //  addr_rw       <= 0;
+           // addr_rw       <= 0;
 
         end else begin
 
@@ -127,7 +127,7 @@ module i2c_slave #(
                 pull_sda <= 1'b0;
 
                 if (bus_start) begin
-                    //$display("[%0t] FSM: → ADDR_SHIFT", $time);
+                    // $display("[%0t] FSM: → ADDR_SHIFT", $time);
                     state       <= ADDR_SHIFT;
                     bit_counter <= 0;
                 end
@@ -146,8 +146,8 @@ module i2c_slave #(
                     //          $time, bit_counter, sda_in, {shreg[6:0], sda_in});
 
                     if (bit_counter == 7) begin
-                        //addr_rw       <= ({shreg[6:0], sda_in} >> 1)[6:0];
-                        address_match <= ( {shreg[6:0], sda_in} >> 1 )== {1'b0, I2C_ADDR};
+                        //addr_rw       <= {shreg[6:0], sda_in};
+                        address_match <= ( {shreg[6:0], sda_in} >> 1 ) == {1'b0, I2C_ADDR};
                         read_check    <= sda_in;
                         bit_counter <= 0;
                         ack_asserted <= 0;
@@ -156,10 +156,10 @@ module i2c_slave #(
                         // $display("[%0t] ADDR byte received = %b", 
                         //          $time, {shreg[6:0], sda_in});
                         // $display("[%0t] Address match? %0d (expected %b)",
-                        //        $time,
-                        //         (({shreg[6:0], sda_in} >> 1) == {1'b0, I2C_ADDR}),
+                        //         $time,
+                        //         (({shreg[6:0], sda_in} >> 1) == I2C_ADDR),
                         //         I2C_ADDR);
-                       // $display("[%0t] R/W = %0d", $time, sda_in);
+                        // $display("[%0t] R/W = %0d", $time, sda_in);
                     end
                 end
             end
@@ -189,7 +189,7 @@ module i2c_slave #(
                             state <= TX_BYTE;
                         end else begin
                             // $display("[%0t] ERROR: Write not supported → IDLE", $time);
-                             state <= IDLE;
+                            // state <= IDLE;
                         end
                     end
                 end else begin
@@ -206,14 +206,14 @@ module i2c_slave #(
                     pull_sda <= (shreg[7] == 1'b0);
 
                 if (scl_rise) begin
-                    // $display("[%0t] TX_BYTE: sending bit %0d = %0b",
-                    //          $time, bit_counter, shreg[7]);
+                    $display("[%0t] TX_BYTE: sending bit %0d = %0b",
+                             $time, bit_counter, shreg[7]);
 
                     shreg <= {shreg[6:0], 1'b0};
                     bit_counter <= bit_counter + 1;
                 end
                 if (scl_fall && bit_counter == 8) begin
-                        // $display("[%0t] TX_BYTE: finished byte", $time);
+                        $display("[%0t] TX_BYTE: finished byte", $time);
                         bit_counter <= 0;
                         pull_sda <= 0;
                         state <= MACK;
@@ -241,7 +241,7 @@ module i2c_slave #(
             NEXT_BYTE: begin
                 case (byte_index)
                     0: begin
-                        // $display("[%0t] NEXT: Sending y_pos=%0d", $time, y_pos);
+                        //$display("[%0t] NEXT: Sending y_pos=%0d", $time, y_pos);
                         shreg      <= y_pos;
                         byte_index <= 1;
                         state      <= TX_BYTE;
@@ -253,7 +253,7 @@ module i2c_slave #(
                         state      <= TX_BYTE;
                     end
                     default: begin
-                       // $display("[%0t] NEXT: Done (all bytes sent)", $time);
+                        //$display("[%0t] NEXT: Done (all bytes sent)", $time);
                         byte_index <= 0;
                         state      <= IDLE;
                     end

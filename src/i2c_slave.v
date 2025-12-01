@@ -53,7 +53,7 @@ module i2c_slave #(
 
     wire scl_rise = (scl_d == 4'b0111);
     wire scl_fall = (scl_d == 4'b1000);
-    wire sda_rise = (sda_d == 4'b0111);
+    //wire sda_rise = (sda_d == 4'b0111);
     wire sda_fall = (sda_d == 4'b1000);
 
     wire scl_high = scl_d[3];
@@ -147,7 +147,7 @@ module i2c_slave #(
 
                     if (bit_counter == 7) begin
                         //addr_rw       <= ({shreg[6:0], sda_in} >> 1)[6:0];
-                        address_match <= ( {shreg[6:0], sda_in} >> 1 ) == I2C_ADDR;
+                        address_match <= ( {shreg[6:0], sda_in} >> 1 )[6:0] == I2C_ADDR;
                         read_check    <= sda_in;
                         bit_counter <= 0;
                         ack_asserted <= 0;
